@@ -21,7 +21,6 @@ import {
   FormControl,
   Select,
   FormLabel,
-  FormHelperText,
 } from "@chakra-ui/react";
 import HeroImage from "../../assets/heroImage.png";
 import { useState } from "react";

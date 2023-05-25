@@ -14,7 +14,6 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
-  Heading,
   Text,
   Image,
 } from "@chakra-ui/react";

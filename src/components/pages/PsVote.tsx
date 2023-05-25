@@ -1,11 +1,10 @@
-import { ChevronDownIcon, StarIcon } from "@chakra-ui/icons";
+import { StarIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Flex,
   HStack,
   Heading,
-  Icon,
   Image,
   Menu,
   MenuButton,
