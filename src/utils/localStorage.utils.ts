@@ -22,6 +22,10 @@ export const setItem = (key: string, value: any): void => {
   return localStorage.setItem(key, JSON.stringify(value));
 };
 
+export const sessionSetItem = (key: string, value: any): void => {
+  return sessionStorage.setItem(key, JSON.stringify(value));
+};
+
 /**
  * Does the same thing with setItem. Just making the function explicit
  * @param key

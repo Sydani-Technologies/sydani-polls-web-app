@@ -1,18 +1,21 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "https://office.sydani.org/",
-});
+  const session = JSON.parse(sessionStorage.getItem("session") as string);
 
-API.interceptors.request.use((req) => {
-  if (localStorage.getItem("session")) {
-    req.headers.Authorization = "token 286b4c0dbd0c141:d872638c901d607";
-  }
+  const API = axios.create({
+    baseURL: "https://office.sydani.org/",
+  });
 
-  return req;
-});
+  API.interceptors.request.use((req) => {
+    if (session) {
+      req.headers.Authorization = `token ${session?.message.api_key}:${session?.message.api_secret}`;
+    }
 
-export const fetchEmployees = () => API.get(`/api/method/emp_email_list`);
+    return req;
+  });
 
-export const signIn = (formData: any) => API.post("/user/signin", formData);
-export const signUp = (formData: any) => API.post("/user/signup", formData);
+  export const fetchEmployees = () =>
+    API.get(`api/method/sydani.api.employees`);
+
+  export const signIn = (loginData: { usr: string; pwd: string }) =>
+    API.post("api/method/sydani.api.login", loginData);

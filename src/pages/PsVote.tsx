@@ -12,18 +12,21 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import PsHero from "../../assets/psHero.png";
-import bgBlob from "../../assets/bgBlob.svg";
+import PsHero from "../assets/psHero.png";
+import bgBlob from "../assets/bgBlob.svg";
+import { Link } from "react-router-dom";
 
 const PsVote = () => {
   return (
     <HStack
+      flexDir={{ base: "column", md: "row" }}
+      minH="100vh"
       paddingInline="2rem"
       backgroundImage={bgBlob}
       backgroundPosition="top right"
       backgroundSize="400px 500px"
       backgroundRepeat="no-repeat">
-      <Box>
+      <Box marginBlock={{ base: "auto", md: "0" }}>
         <Heading fontSize="48px">
           <span>Cast your vote for the</span>
           <span style={{ marginLeft: ".4rem" }}>
@@ -40,7 +43,7 @@ const PsVote = () => {
         <Flex
           marginTop="2rem"
           bgColor="white"
-          width="50%"
+          width={{ base: "80%", md: "50%" }}
           height="6rem"
           display="flex"
           justifyContent="space-between"
@@ -62,6 +65,8 @@ const PsVote = () => {
             </MenuButton>
             <MenuList boxShadow="0" background="transparent">
               <MenuItem
+                as={Link}
+                to="/ps-vote/vote?ps=Latitude"
                 bgColor="blackAlpha.500"
                 _hover={{ bgColor: "gray.800" }}
                 width="5rem"
@@ -76,6 +81,8 @@ const PsVote = () => {
                 Lat
               </MenuItem>
               <MenuItem
+                as={Link}
+                to="/ps-vote/vote?ps=Longitude"
                 bgColor="blackAlpha.500"
                 _hover={{ bgColor: "gray.800" }}
                 width="5rem"
@@ -90,6 +97,8 @@ const PsVote = () => {
                 Long
               </MenuItem>
               <MenuItem
+                as={Link}
+                to="/ps-vote/vote?ps="
                 bgColor="blackAlpha.500"
                 _hover={{ bgColor: "gray.800" }}
                 width="5rem"
@@ -107,7 +116,7 @@ const PsVote = () => {
           </Menu>
         </Flex>
       </Box>
-      <Box>
+      <Box display={{ base: "none", md: "block" }}>
         <Image src={PsHero} alt="PS vote Hero Image" />
       </Box>
     </HStack>

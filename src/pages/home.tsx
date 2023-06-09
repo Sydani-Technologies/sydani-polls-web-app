@@ -21,10 +21,17 @@ import {
   FormControl,
   Select,
   FormLabel,
+  SimpleGrid,
+  Card,
+  CardBody,
+  CardFooter,
+  ButtonGroup,
+  Divider,
 } from "@chakra-ui/react";
-import HeroImage from "../../assets/heroImage.png";
+import HeroImage from "../assets/heroImage.png";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Hero from "../assets/hero.png";
 
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,10 +39,8 @@ export default function Home() {
   const navigate = useNavigate();
 
   const handleVote = () => {
-    console.log(value);
-
     if (value === "PS") navigate("/ps-vote");
-    if (value === "Hero") navigate("/hero");
+    if (value === "Hero") navigate("/hero-vote");
     if (value === "Operations") navigate("/operations");
   };
 
@@ -74,14 +79,15 @@ export default function Home() {
           <Text color={"gray.500"}>
             This is the Sydani votes app, a single application for all polls and
             votes in the Sydani Ecosystem. PS Session Star of the Week Vote,
-            Operations Weeting star vote, Hero of the Week vote and
+            Operations Weeting star vote, Hero of the Week vote and etc...
           </Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: "column", sm: "row" }}>
             <Button
               rounded={"full"}
-              size={"lg"}
+              size={{ base: "sm", md: "lg" }}
+              width={{ base: "40%", md: "30%" }}
               fontWeight={"normal"}
               px={6}
               colorScheme={"red"}
@@ -124,6 +130,105 @@ export default function Home() {
           </Box>
         </Flex>
       </Stack>
+
+      <Box>
+        <Heading>What poll are you looking to vote in???</Heading>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }}>
+          <Card maxW="sm">
+            <CardBody>
+              <Image
+                src={Hero}
+                alt="Green double couch with wooden legs"
+                borderRadius="lg"
+              />
+              <Stack mt="6" spacing="3">
+                <Heading size="md">Operations PS</Heading>
+              </Stack>
+            </CardBody>
+            <Divider />
+            <CardFooter>
+              <ButtonGroup spacing="2">
+                <Button
+                  as={Link}
+                  to="/operations-vote"
+                  variant="solid"
+                  colorScheme="blue">
+                  Go to Operations PS Poll
+                </Button>
+                <Button
+                  as={Link}
+                  to="/operationa-vote/result"
+                  variant="outline"
+                  colorScheme="blue">
+                  View Result
+                </Button>
+              </ButtonGroup>
+            </CardFooter>
+          </Card>
+          <Card maxW="sm">
+            <CardBody>
+              <Image
+                src={Hero}
+                alt="Green double couch with wooden legs"
+                borderRadius="lg"
+              />
+              <Stack mt="6" spacing="3">
+                <Heading size="md">Programs PS</Heading>
+              </Stack>
+            </CardBody>
+            <Divider />
+            <CardFooter>
+              <ButtonGroup spacing="2">
+                <Button
+                  as={Link}
+                  to="/ps-vote"
+                  variant="solid"
+                  colorScheme="blue">
+                  Go to Programs PS Poll
+                </Button>
+                <Button
+                  as={Link}
+                  to="/ps-vote/result-page"
+                  variant="outline"
+                  colorScheme="blue">
+                  View Result
+                </Button>
+              </ButtonGroup>
+            </CardFooter>
+          </Card>
+          <Card maxW="sm">
+            <CardBody>
+              <Image
+                src={Hero}
+                alt="Green double couch with wooden legs"
+                borderRadius="lg"
+              />
+              <Stack mt="6" spacing="3">
+                <Heading size="md">Hero of the Week</Heading>
+              </Stack>
+            </CardBody>
+            <Divider />
+            <CardFooter>
+              <ButtonGroup spacing="2">
+                <Button
+                  as={Link}
+                  to="/hero-vote"
+                  variant="solid"
+                  colorScheme="blue">
+                  Go to Hero of the Week Poll
+                </Button>
+                <Button
+                  as={Link}
+                  to="/hero-vote/result-page"
+                  variant="outline"
+                  colorScheme="blue">
+                  View Result
+                </Button>
+              </ButtonGroup>
+            </CardFooter>
+          </Card>
+        </SimpleGrid>
+      </Box>
 
       <Modal blockScrollOnMount={true} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

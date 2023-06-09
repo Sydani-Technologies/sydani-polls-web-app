@@ -16,20 +16,24 @@ import {
   Stack,
   Text,
   Image,
+  Heading,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
-import { setItem } from "../../utils/localStorage.utils";
 import Logo from "../../assets/sydaniLogo.svg";
 
 const Links = [
   {
-    link: "PS Vote",
+    link: "Programs PS",
     to: "/ps-vote",
   },
   {
-    link: "View PS Result",
-    to: "/ps-result",
+    link: "Operations PS",
+    to: "/operations-vote",
+  },
+  {
+    link: "Hero of the Week",
+    to: "/hero-vote",
   },
 ];
 
@@ -51,10 +55,10 @@ const NavLink = ({ children, to }: { children: ReactNode; to: string }) => (
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const userAccount = JSON.parse(localStorage.getItem("session") as string);
+  const session = JSON.parse(sessionStorage.getItem("session") as string);
 
   const handleLogout = () => {
-    setItem("session", "");
+    sessionStorage.clear();
     location.reload();
   };
 
@@ -62,7 +66,7 @@ export default function Header() {
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex
-          marginInline="3rem"
+          marginInline={{ base: "0", md: "3rem" }}
           h={16}
           alignItems={"center"}
           justifyContent={"space-between"}>
@@ -74,8 +78,16 @@ export default function Header() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <Box as={Link} to="/">
+            <Box
+              display="flex"
+              alignItems="center"
+              columnGap=".5rem"
+              as={Link}
+              to="/">
               <Image src={Logo} />
+              <Heading color="blue.900" fontSize="1.5rem">
+                Sydani Polls
+              </Heading>
             </Box>
             <HStack
               marginLeft="2rem"
@@ -89,7 +101,7 @@ export default function Header() {
               ))}
             </HStack>
           </HStack>
-          {userAccount ? (
+          {session ? (
             <Flex alignItems={"center"}>
               <Menu>
                 <MenuButton
@@ -102,19 +114,15 @@ export default function Header() {
                     <Text
                       textDecoration="none"
                       display={{ base: "none", md: "block" }}>
-                      {userAccount?.result?.name}
+                      {session?.full_name}
                     </Text>
-                    <Avatar
-                      size={"sm"}
-                      src={""}
-                      name={userAccount?.result?.name}
-                    />
+                    <Avatar size={"sm"} src={""} name={session?.full_name} />
                     <ChevronDownIcon />
                   </Flex>
                 </MenuButton>
                 <MenuList>
-                  <MenuItem>My profile</MenuItem>
-                  <MenuItem>Settings</MenuItem>
+                  {/* <MenuItem>My profile</MenuItem>
+                  <MenuItem>Settings</MenuItem> */}
                   <MenuDivider />
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </MenuList>
@@ -122,7 +130,7 @@ export default function Header() {
             </Flex>
           ) : (
             <Link to="/auth">
-              <Button fontWeight="normal">Signin or Signup</Button>
+              <Button fontWeight="normal">Signin</Button>
             </Link>
           )}
         </Flex>
